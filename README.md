@@ -2,6 +2,14 @@
 
 ## Installation
 
+### Online
+
+```
+pip install git+https://github.com/chinaheyu/cv2_enumerate_cameras.git
+```
+
+### Local
+
 ```
 python setup.py install
 ```
