@@ -1,6 +1,14 @@
 from _cv2_enumerate_cameras import MSMF_enumerate_cameras, DSHOW_enumerate_cameras
-import cv2
 import re
+
+
+try:
+    import cv2
+    CAP_MSMF = cv2.CAP_MSMF
+    CAP_DSHOW = cv2.CAP_DSHOW
+except ModuleNotFoundError:
+    CAP_MSMF = 1400
+    CAP_DSHOW = 700
 
 
 class CameraInfo:
@@ -52,13 +60,17 @@ class CameraInfo:
 
 
 def enumerate_cameras(apiPreference):
-    if apiPreference == cv2.CAP_MSMF:
+    if apiPreference == CAP_MSMF:
         camera_list = MSMF_enumerate_cameras()
-    elif apiPreference == cv2.CAP_DSHOW:
+    elif apiPreference == CAP_DSHOW:
         camera_list = DSHOW_enumerate_cameras()
     else:
-        raise NotImplementedError(f"Unsupported backend {cv2.videoio_registry.getBackendName(apiPreference)}!")
+        raise NotImplementedError(f"Unsupported backend: {apiPreference}!")
     return [CameraInfo(i, *c) for i, c in enumerate(camera_list)]
 
+
+if __name__ == '__main__':
+    for i in enumerate_cameras(CAP_MSMF):
+        print(i)
 
 __all__ = ['enumerate_cameras']
