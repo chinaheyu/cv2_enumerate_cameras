@@ -2,16 +2,16 @@
 
 ## Installation
 
-### Online
+### Install from PyPI
 
+```commandline
+pip install cv2_enumerate_cameras
 ```
+
+### Install from Source
+
+```commandline
 pip install git+https://github.com/chinaheyu/cv2_enumerate_cameras.git
-```
-
-### Local
-
-```
-python setup.py install
 ```
 
 ## Example
@@ -64,3 +64,9 @@ while True:
     if cv2.waitKey(1) == ord('q'):
         break
 ```
+
+## TODO
+
+- [x] Windows Support
+- [ ] Linux Support
+- [ ] MacOS Support
