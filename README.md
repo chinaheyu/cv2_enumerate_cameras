@@ -30,7 +30,7 @@ The `cv2_enumerate_cameras.enumerate_cameras()` function will return a list of `
 
 ```python
 import cv2
-from cv2_enumerate_cameras import enumerate_cameras
+from src.cv2_enumerate_cameras import enumerate_cameras
 
 for camera_info in enumerate_cameras(cv2.CAP_MSMF):
     print(f'{camera_info.index}: {camera_info.name}')
@@ -47,7 +47,7 @@ Output:
 
 ```python
 import cv2
-from cv2_enumerate_cameras import enumerate_cameras
+from src.cv2_enumerate_cameras import enumerate_cameras
 
 def find_camera(vid, pid, apiPreference=cv2.CAP_MSMF):
     for i in enumerate_cameras(apiPreference):
