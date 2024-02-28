@@ -1,4 +1,4 @@
-from _cv2_enumerate_cameras import MSMF_enumerate_cameras, DSHOW_enumerate_cameras
+from ._cv2_enumerate_cameras import MSMF_enumerate_cameras, DSHOW_enumerate_cameras
 import re
 
 
@@ -68,9 +68,5 @@ def enumerate_cameras(apiPreference):
         raise NotImplementedError(f"Unsupported backend: {apiPreference}!")
     return [CameraInfo(i, *c) for i, c in enumerate(camera_list)]
 
-
-if __name__ == '__main__':
-    for i in enumerate_cameras(CAP_MSMF):
-        print(i)
 
 __all__ = ['enumerate_cameras']

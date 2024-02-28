@@ -16,6 +16,12 @@ pip install git+https://github.com/chinaheyu/cv2_enumerate_cameras.git
 
 ## Example
 
+### Run as Script
+
+```commandline
+python -m cv2_enumerate_cameras
+```
+
 ### Camera Info
 
 The `cv2_enumerate_cameras.enumerate_cameras()` function will return a list of `CameraInfo` objects.

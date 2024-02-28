@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "cv2_enumerate_cameras"
 description = "Enumerate / List / Find / Detect / Search index for opencv VideoCapture."
-version = "1.1.1"
+version = "1.1.2"
 authors = [
   { name="Yu He", email="chinaheyu@outlook.com" },
 ]
@@ -17,3 +17,11 @@ keywords = ["opencv", "cv2", "enumerate", "camera", "video capture"]
 [project.urls]
 Homepage = "https://github.com/chinaheyu/cv2_enumerate_cameras"
 Issues = "https://github.com/chinaheyu/cv2_enumerate_cameras/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["cv2_enumerate_cameras"]
+namespaces = false
+
+[tool.setuptools.exclude-package-data]
+cv2_enumerate_cameras = ["cv2_enumerate_cameras.cpp"]
