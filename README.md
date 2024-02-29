@@ -22,21 +22,11 @@ pip install git+https://github.com/chinaheyu/cv2_enumerate_cameras.git
 python -m cv2_enumerate_cameras
 ```
 
-### Camera Info
-
-The `cv2_enumerate_cameras.enumerate_cameras()` function will return a list of `CameraInfo` objects.
-
-- `CameraInfo.index`: Camera index for creating `cv2.VideoCapture`
-- `CameraInfo.name`: Camera name
-- `CameraInfo.path`:  Camera device path
-- `CameraInfo.vid`:  Vendor identifier
-- `CameraInfo.pid`:  Product identifier
-
 ### Enumerate Cameras
 
 ```python
 import cv2
-from src.cv2_enumerate_cameras import enumerate_cameras
+from cv2_enumerate_cameras import enumerate_cameras
 
 for camera_info in enumerate_cameras(cv2.CAP_MSMF):
     print(f'{camera_info.index}: {camera_info.name}')
@@ -49,11 +39,21 @@ Output:
 ...
 ```
 
+### Camera Info
+
+The `cv2_enumerate_cameras.enumerate_cameras()` function will return a list of `CameraInfo` objects.
+
+- `CameraInfo.index`: Camera index for creating `cv2.VideoCapture`
+- `CameraInfo.name`: Camera name
+- `CameraInfo.path`:  Camera device path
+- `CameraInfo.vid`:  Vendor identifier
+- `CameraInfo.pid`:  Product identifier
+
 ### Find Camera by Vendor and Product Identifier
 
 ```python
 import cv2
-from src.cv2_enumerate_cameras import enumerate_cameras
+from cv2_enumerate_cameras import enumerate_cameras
 
 def find_camera(vid, pid, apiPreference=cv2.CAP_MSMF):
     for i in enumerate_cameras(apiPreference):

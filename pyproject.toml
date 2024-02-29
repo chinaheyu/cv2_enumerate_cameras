@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "cv2_enumerate_cameras"
 description = "Enumerate / List / Find / Detect / Search index for opencv VideoCapture."
-version = "1.1.2"
+version = "1.1.3"
 authors = [
   { name="Yu He", email="chinaheyu@outlook.com" },
 ]
