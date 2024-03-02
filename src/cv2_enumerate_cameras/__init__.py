@@ -87,6 +87,8 @@ if system == 'Linux':
     supported_backends = (CAP_GSTREAMER, CAP_V4L2)
 
     def cameras_generator(apiPreference):
+        if apiPreference not in supported_backends:
+            raise NotImplementedError(f"Unsupported backend: {apiPreference}!")
 
         def read_line(*args):
             try:
