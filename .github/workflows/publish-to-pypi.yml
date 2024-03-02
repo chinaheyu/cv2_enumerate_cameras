@@ -26,10 +26,10 @@ jobs:
       - name: Build package
         run: python -m build --wheel
       - name: Store the distribution packages
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: output-wheels-ubuntu-latest
-          path: dist/*.whl
+          name: output-wheels-linux-latest
+          path: ./dist/*.whl
 
   build_windows_wheels:
     name: Build wheels on windows-latest
@@ -37,10 +37,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
       - name: Build package
         uses: pypa/cibuildwheel@v2.16.5
-
       - name: Store the distribution packages
         uses: actions/upload-artifact@v4
         with:
@@ -52,10 +50,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - name: Build sdist
         run: pipx run build --sdist
-
       - uses: actions/upload-artifact@v4
         with:
           name: output-sdist
