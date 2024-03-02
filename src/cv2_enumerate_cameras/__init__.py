@@ -1,4 +1,4 @@
-__version__ = '1.1.6'
+__version__ = '1.1.7'
 
 import platform
 system = platform.system()
@@ -51,7 +51,7 @@ if system == 'Windows':
         CAP_MSMF = 1400
         CAP_DSHOW = 700
 
-    supported_backends = (CAP_MSMF, CAP_MSMF)
+    supported_backends = (CAP_MSMF, CAP_DSHOW)
 
     def cameras_generator(apiPreference):
 

@@ -14,4 +14,4 @@ if system == 'Windows':
     )
 
 if system == 'Linux':
-    setup(options={"bdist_wheel": {"plat_name": "manylinux"}})
+    setup()

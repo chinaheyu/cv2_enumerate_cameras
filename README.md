@@ -22,6 +22,16 @@ pip install git+https://github.com/chinaheyu/cv2_enumerate_cameras.git
 python -m cv2_enumerate_cameras
 ```
 
+### Supported Backends
+
+```python
+from cv2.videoio_registry import getBackendName
+from cv2_enumerate_cameras import supported_backends
+
+for backend in supported_backends:
+    print(getBackendName(backend))
+```
+
 ### Enumerate Cameras
 
 ```python
