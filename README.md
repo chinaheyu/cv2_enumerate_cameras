@@ -74,5 +74,5 @@ while True:
 ## TODO
 
 - [x] Windows Support
-- [ ] Linux Support
+- [x] Linux Support
 - [ ] MacOS Support

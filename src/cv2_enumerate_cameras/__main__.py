@@ -1,11 +1,16 @@
-from . import enumerate_cameras, CAP_MSMF, CAP_DSHOW
+from . import enumerate_cameras, supported_backends
+
+
+try:
+    from cv2.videoio_registry import getBackendName
+except ModuleNotFoundError:
+    def getBackendName(api):
+        return str(api)
 
 
 if __name__ == '__main__':
-    print(f'Enumerate using MSMF backend:')
-    for i in enumerate_cameras(CAP_MSMF):
-        print(i)
-    print()
-    print(f'Enumerate using DSHOW backend:')
-    for i in enumerate_cameras(CAP_DSHOW):
-        print(i)
+    for backend in supported_backends:
+        print(f'Enumerate using {getBackendName(backend)} backend:')
+        for i in enumerate_cameras(backend):
+            print(i)
+        print()
