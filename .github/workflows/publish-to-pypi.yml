@@ -9,22 +9,42 @@ on:
       - closed
 
 jobs:
-  build_wheels:
-    name: Build wheels on ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest]
+  build_linux_wheels:
+    name: Build wheels on ubuntu-latest
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install build
+      - name: Build package
+        run: python -m build --wheel
+      - name: Store the distribution packages
+        uses: actions/upload-artifact@v3
+        with:
+          name: output-wheels-ubuntu-latest
+          path: dist/*.whl
+
+  build_windows_wheels:
+    name: Build wheels on windows-latest
+    runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build wheels
+      - name: Build package
         uses: pypa/cibuildwheel@v2.16.5
 
-      - uses: actions/upload-artifact@v4
+      - name: Store the distribution packages
+        uses: actions/upload-artifact@v4
         with:
-          name: cibw-wheels-${{ matrix.os }}-${{ strategy.job-index }}
+          name: output-wheels-windows-latest
           path: ./wheelhouse/*.whl
 
   build_sdist:
@@ -38,17 +58,17 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: cibw-sdist
+          name: output-sdist
           path: dist/*.tar.gz
 
   publish-to-pypi:
-    needs: [build_wheels, build_sdist]
+    needs: [build_linux_wheels, build_windows_wheels, build_sdist]
     runs-on: ubuntu-latest
     steps:
       - name: Download all the dists
         uses: actions/download-artifact@v4
         with:
-          pattern: cibw-*
+          pattern: output-*
           path: dist
           merge-multiple: true
 

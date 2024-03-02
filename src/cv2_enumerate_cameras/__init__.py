@@ -1,8 +1,7 @@
+__version__ = '1.1.5'
+
 import platform
-
-
 system = platform.system()
-
 
 class CameraInfo:
     def __init__(self, index, name, path=None, vid=None, pid=None):
@@ -40,7 +39,6 @@ class CameraInfo:
     def pid(self):
         return self.__pid
 
-
 if system == 'Windows':
     from ._cv2_enumerate_cameras import MSMF_enumerate_cameras, DSHOW_enumerate_cameras
     import re
@@ -73,7 +71,6 @@ if system == 'Windows':
         for index, (name, path) in enumerate(camera_list):
             vid, pid = parse_vid_pid(path)
             yield CameraInfo(index, name, path, vid, pid)
-
 
 if system == 'Linux':
     import os
@@ -121,9 +118,7 @@ if system == 'Linux':
                 pid = None
             yield CameraInfo(index, name, path, vid, pid)
 
-
 def enumerate_cameras(apiPreference):
     return list(cameras_generator(apiPreference))
-
 
 __all__ = ['CameraInfo', 'supported_backends', 'enumerate_cameras']
