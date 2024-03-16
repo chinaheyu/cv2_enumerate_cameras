@@ -150,7 +150,7 @@ bool DSHOW_enumerate_cameras(std::vector<CameraInfo>& camera_info) {
     return true;
 }
 
-static PyObject* cv2_enumerate_cameras_MSMF_enumerate_cameras(PyObject* self, PyObject* args)
+static PyObject* windows_backend_MSMF_enumerate_cameras(PyObject* self, PyObject* args)
 {
     std::vector<CameraInfo> camera_info;
     if (!MSMF_enumerate_cameras(camera_info))
@@ -163,7 +163,7 @@ static PyObject* cv2_enumerate_cameras_MSMF_enumerate_cameras(PyObject* self, Py
     return result;
 }
 
-static PyObject* cv2_enumerate_cameras_DSHOW_enumerate_cameras(PyObject* self, PyObject* args)
+static PyObject* windows_backend_DSHOW_enumerate_cameras(PyObject* self, PyObject* args)
 {
     std::vector<CameraInfo> camera_info;
     if (!DSHOW_enumerate_cameras(camera_info))
@@ -176,21 +176,21 @@ static PyObject* cv2_enumerate_cameras_DSHOW_enumerate_cameras(PyObject* self, P
     return result;
 }
 
-static PyMethodDef cv2_enumerate_cameras_methods[] = {
-    {"MSMF_enumerate_cameras",  cv2_enumerate_cameras_MSMF_enumerate_cameras, METH_NOARGS, "MSMF_enumerate_cameras"},
-    {"DSHOW_enumerate_cameras",  cv2_enumerate_cameras_DSHOW_enumerate_cameras, METH_NOARGS, "DSHOW_enumerate_cameras"},
+static PyMethodDef windows_backend_methods[] = {
+    {"MSMF_enumerate_cameras",  windows_backend_MSMF_enumerate_cameras, METH_NOARGS, "MSMF_enumerate_cameras"},
+    {"DSHOW_enumerate_cameras",  windows_backend_DSHOW_enumerate_cameras, METH_NOARGS, "DSHOW_enumerate_cameras"},
     {NULL, NULL, 0, NULL}
 };
 
-static struct PyModuleDef cv2_enumerate_cameras_module = {
+static struct PyModuleDef windows_backend_module = {
     PyModuleDef_HEAD_INIT,
-    "_cv2_enumerate_cameras",
+    "_windows_backend",
     NULL,
     -1,
-    cv2_enumerate_cameras_methods
+    windows_backend_methods
 };
 
-PyMODINIT_FUNC PyInit__cv2_enumerate_cameras(void)
+PyMODINIT_FUNC PyInit__windows_backend(void)
 {
-    return PyModule_Create(&cv2_enumerate_cameras_module);
+    return PyModule_Create(&windows_backend_module);
 }

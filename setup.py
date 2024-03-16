@@ -7,8 +7,8 @@ if system == 'Windows':
     setup(
         ext_modules=[
             Extension(
-                name="cv2_enumerate_cameras._cv2_enumerate_cameras",
-                sources=["src/cv2_enumerate_cameras/cv2_enumerate_cameras.cpp"]
+                name="cv2_enumerate_cameras._windows_backend",
+                sources=["src/cv2_enumerate_cameras/_windows_backend.cpp"]
             )
         ]
     )
