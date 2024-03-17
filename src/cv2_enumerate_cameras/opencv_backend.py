@@ -9,6 +9,8 @@ def parse_frame_format(frame_format):
     type_list = ['8U', '8S', '16U', '16S', '32S', '32F', '64F']
     if not isinstance(frame_format, int):
         frame_format = int(frame_format)
+    if frame_format == -1:
+        return ""
     return type_list[frame_format % 8] + f'C{frame_format // 8 + 1:d}'
 
 
