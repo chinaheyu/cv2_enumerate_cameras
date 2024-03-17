@@ -13,15 +13,16 @@ except ModuleNotFoundError:
 supported_backends = (CAP_GSTREAMER, CAP_V4L2)
 
 
-def cameras_generator(apiPreference):
-    def read_line(*args):
-        try:
-            with open(os.path.join(*args)) as f:
-                line = f.readline().strip()
-            return line
-        except IOError:
-            return None
+def read_line(*args):
+    try:
+        with open(os.path.join(*args)) as f:
+            line = f.readline().strip()
+        return line
+    except IOError:
+        return None
 
+
+def cameras_generator(apiPreference):
     for path in glob.glob('/dev/video*'):
         device_name = os.path.basename(path)
         index = int(device_name[5:])
@@ -38,10 +39,10 @@ def cameras_generator(apiPreference):
             pid = int(read_line(usb_device_path, 'idProduct'), 16)
         else:
             name = read_line(video_device_path, 'name')
-            if not name:
-                name = device_name
             vid = None
             pid = None
+        if not name:
+            name = device_name
         yield CameraInfo(index, name, path, vid, pid, apiPreference)
 
 
