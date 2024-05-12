@@ -1,5 +1,5 @@
-from . import enumerate_cameras, supported_backends
-from .camera_info import CAP_ANY
+from cv2_enumerate_cameras import enumerate_cameras, supported_backends
+from cv2_enumerate_cameras.camera_info import CAP_ANY
 
 
 try:

@@ -1,6 +1,6 @@
-__version__ = '1.1.9'
+__version__ = '1.1.10'
 
-from .camera_info import CameraInfo
+from cv2_enumerate_cameras.camera_info import CameraInfo
 import platform
 
 system = platform.system()
@@ -12,11 +12,11 @@ except ModuleNotFoundError:
     CAP_ANY = 0
 
 if system == 'Windows':
-    from .windows_backend import supported_backends, cameras_generator
+    from cv2_enumerate_cameras.windows_backend import supported_backends, cameras_generator
 elif system == 'Linux':
-    from .linux_backend import supported_backends, cameras_generator
+    from cv2_enumerate_cameras.linux_backend import supported_backends, cameras_generator
 else:
-    from .opencv_backend import supported_backends, cameras_generator
+    from cv2_enumerate_cameras.opencv_backend import supported_backends, cameras_generator
 
 
 def enumerate_cameras(apiPreference=CAP_ANY):

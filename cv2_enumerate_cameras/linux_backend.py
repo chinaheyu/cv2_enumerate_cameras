@@ -1,4 +1,4 @@
-from .camera_info import CameraInfo
+from cv2_enumerate_cameras.camera_info import CameraInfo
 import os
 import glob
 

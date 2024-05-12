@@ -1,5 +1,5 @@
-from .camera_info import CameraInfo
-from ._windows_backend import MSMF_enumerate_cameras, DSHOW_enumerate_cameras
+from cv2_enumerate_cameras.camera_info import CameraInfo
+from cv2_enumerate_cameras._windows_backend import MSMF_enumerate_cameras, DSHOW_enumerate_cameras
 import re
 
 

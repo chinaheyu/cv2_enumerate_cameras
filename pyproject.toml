@@ -9,7 +9,7 @@ authors = [
   { name="Yu He", email="chinaheyu@outlook.com" },
 ]
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.6"
 license = {file = "LICENSE"}
 keywords = ["opencv", "cv2", "enumerate", "camera", "video capture"]
 dynamic = ["version"]
@@ -19,7 +19,7 @@ Homepage = "https://github.com/chinaheyu/cv2_enumerate_cameras"
 Issues = "https://github.com/chinaheyu/cv2_enumerate_cameras/issues"
 
 [tool.setuptools.packages.find]
-where = ["src"]
+where = ["."]
 include = ["cv2_enumerate_cameras"]
 namespaces = false
 
