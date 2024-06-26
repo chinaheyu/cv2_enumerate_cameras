@@ -1,0 +1,6 @@
+def MSMF_enumerate_cameras() -> list[tuple[str, str]]:
+    ...
+
+
+def DSHOW_enumerate_cameras() -> list[tuple[str, str]]:
+    ...

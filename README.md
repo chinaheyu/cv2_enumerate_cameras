@@ -1,5 +1,7 @@
 # cv2_enumerate_cameras
 
+Retrieve the connected camera's name, VID, PID, and the corresponding OpenCV index.
+
 ## Installation
 
 ### Install from PyPI
