@@ -12,10 +12,15 @@ except ModuleNotFoundError:
 
 def main():
     for backend in [CAP_ANY, *supported_backends]:
-        print(f'Enumerate using {getBackendName(backend)} backend:')
-        camera_infos = enumerate_cameras(backend)
-        name_column_length = max((len(i.name) for i in camera_infos))
-        path_column_length = max((len(i.path) for i in camera_infos))
+        backend_name = getBackendName(backend)
+        print(f'Enumerate using {backend_name} backend:')
+        camera_info_list = enumerate_cameras(backend)
+        if not camera_info_list:
+            print(f"No camera on {backend_name} backend.")
+            continue
+
+        name_column_length = max(max((len(i.name) for i in camera_info_list)), 4)
+        path_column_length = max(max((len(i.path) for i in camera_info_list)), 4)
 
         separate_line = "+-------+-" + "-" * name_column_length + "-+------+------+-" + "-" * path_column_length + "-+"
         output_rows = [
@@ -23,8 +28,8 @@ def main():
             "| index | " + "name".center(name_column_length) + " | vid  | pid  | " + "path".center(path_column_length) + " |",
             separate_line
         ]
-        for i in camera_infos:
-            row = f"| {i.index:5} | {i.name:{name_column_length}} | "
+        for i in camera_info_list:
+            row = f"| {i.index:5} | " + i.name.rjust(name_column_length) + " | "
             if i.vid is None:
                 row += f" --  | "
             else:
@@ -33,7 +38,10 @@ def main():
                 row += f" --  | "
             else:
                 row += f"{i.pid:04X} | "
-            row += f"{i.path:{path_column_length}} |"
+            if i.path:
+                row += i.path.rjust(path_column_length) + " |"
+            else:
+                row += "--".center(path_column_length) + " |"
             output_rows.append(row)
         output_rows.append(separate_line)
         print('\n'.join(output_rows))
