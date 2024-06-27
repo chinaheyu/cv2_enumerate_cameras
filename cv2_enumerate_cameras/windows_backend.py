@@ -22,15 +22,16 @@ def cameras_generator(apiPreference):
                 return int(m.group(1), 16), int(m.group(2), 16)
         return None, None
 
-    camera_list = []
+    camera_list = None
     if apiPreference == CAP_MSMF:
         camera_list = MSMF_enumerate_cameras()
     if apiPreference == CAP_DSHOW:
         camera_list = DSHOW_enumerate_cameras()
 
-    for index, (name, path) in enumerate(camera_list):
-        vid, pid = parse_vid_pid(path)
-        yield CameraInfo(index, name, path, vid, pid, apiPreference)
+    if camera_list is not None:
+        for index, (name, path) in enumerate(camera_list):
+            vid, pid = parse_vid_pid(path)
+            yield CameraInfo(index, name, path, vid, pid, apiPreference)
 
 
 __all__ = ['supported_backends', 'cameras_generator']

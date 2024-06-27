@@ -6,6 +6,8 @@ except ModuleNotFoundError:
 
 
 class CameraInfo:
+    __slots__ = 'index', 'name', 'path', 'vid', 'pid', 'backend'
+
     def __init__(self, index, name, path, vid, pid, backend):
         self.index = index
         self.name = name
