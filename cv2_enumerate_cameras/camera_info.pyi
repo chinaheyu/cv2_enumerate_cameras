@@ -16,6 +16,3 @@ class CameraInfo:
 
     def __repr__(self) -> str:
         ...
-
-    def to_any(self) -> CameraInfo:
-        ...

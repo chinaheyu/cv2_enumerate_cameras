@@ -1,4 +1,4 @@
-__version__ = '1.1.12'
+__version__ = '1.1.13.b'
 
 from cv2_enumerate_cameras.camera_info import CameraInfo
 import platform
@@ -24,7 +24,7 @@ def enumerate_cameras(apiPreference=CAP_ANY):
         raise NotImplementedError(f"Unsupported backend: {apiPreference}!")
 
     if apiPreference == CAP_ANY:
-        return [i.to_any() for j in supported_backends for i in enumerate_cameras(j)]
+        return [CameraInfo(i.index + i.backend, i.name, i.path, i.vid, i.pid, CAP_ANY) for j in supported_backends for i in enumerate_cameras(j)]
     else:
         return list(cameras_generator(apiPreference))
 

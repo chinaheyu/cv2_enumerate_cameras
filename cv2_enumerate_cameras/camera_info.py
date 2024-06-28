@@ -24,8 +24,5 @@ class CameraInfo:
     def __repr__(self):
         return str(self)
 
-    def to_any(self):
-        return CameraInfo(self.index + self.backend, self.name, self.path, self.vid, self.pid, CAP_ANY)
-
 
 __all__ = ['CameraInfo']
