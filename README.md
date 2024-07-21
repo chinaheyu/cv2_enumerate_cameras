@@ -1,5 +1,10 @@
 # cv2_enumerate_cameras
 
+![PyPI - Version](https://img.shields.io/pypi/v/cv2-enumerate-cameras)
+![Python Version from PEP 621 TOML](https://img.shields.io/python/required-version-toml?tomlFilePath=https%3A%2F%2Fraw.githubusercontent.com%2Fchinaheyu%2Fcv2_enumerate_cameras%2Fmain%2Fpyproject.toml)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/chinaheyu/cv2_enumerate_cameras/publish-to-pypi.yml)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/cv2-enumerate-cameras)
+
 Retrieve the connected camera's name, VID, PID, and the corresponding OpenCV index.
 
 ## Installation
