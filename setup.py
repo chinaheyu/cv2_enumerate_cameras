@@ -30,4 +30,10 @@ if system == 'Windows':
     )
 
 if system == 'Linux':
-    setup()
+    setup(
+        name='cv2_enumerate_cameras',
+        description='Enumerate / List / Find / Detect / Search index for opencv VideoCapture.',
+        version=get_version('cv2_enumerate_cameras/__init__.py'),
+        package_dir={"": "."},
+        packages=["cv2_enumerate_cameras"],
+        ext_modules=[])
