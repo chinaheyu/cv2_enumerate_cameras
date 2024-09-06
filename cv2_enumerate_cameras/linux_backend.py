@@ -1,4 +1,5 @@
 from cv2_enumerate_cameras.camera_info import CameraInfo
+from linuxpy.video.device import iter_video_capture_devices
 import os
 import glob
 
@@ -23,20 +24,22 @@ def read_line(*args):
 
 
 def cameras_generator(apiPreference):
-    for path in glob.glob('/dev/video*'):
+    for device in iter_video_capture_devices():
+        path = device.PREFIX + str(device.index)
+        index = device.index
         device_name = os.path.basename(path)
-        if not device_name[5:].isdigit():
-            break
-        index = int(device_name[5:])
         video_device_path = f'/sys/class/video4linux/{device_name}'
         usb_device_path = os.path.join(video_device_path, 'device')
         if os.path.exists(usb_device_path):
             usb_device_path = os.path.realpath(usb_device_path)
+            usb_device_name_path = os.path.join(video_device_path, 'name')
             if ':' in os.path.basename(usb_device_path):
                 name = read_line(usb_device_path, 'interface')
                 usb_device_path = os.path.dirname(usb_device_path)
             else:
-                name = read_line(usb_device_path, 'product')
+                name = read_line(usb_device_path, 'product')  
+            if os.path.exists(usb_device_name_path):
+                name = read_line(video_device_path, 'name')
             vid = int(read_line(usb_device_path, 'idVendor'), 16)
             pid = int(read_line(usb_device_path, 'idProduct'), 16)
         else:
