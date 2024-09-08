@@ -24,27 +24,33 @@ def read_line(*args):
 
 def cameras_generator(apiPreference):
     for path in glob.glob('/dev/video*'):
+        # find device name and index
         device_name = os.path.basename(path)
         if not device_name[5:].isdigit():
             continue
         index = int(device_name[5:])
+
+        # read camera name
         video_device_path = f'/sys/class/video4linux/{device_name}'
+        video_device_name_path = os.path.join(video_device_path, 'name')
+        if os.path.exists(video_device_name_path):
+            name = read_line(video_device_name_path)
+        else:
+            name = device_name
+
+        # find vendor id and product id
+        vid = None
+        pid = None
         usb_device_path = os.path.join(video_device_path, 'device')
         if os.path.exists(usb_device_path):
             usb_device_path = os.path.realpath(usb_device_path)
+
             if ':' in os.path.basename(usb_device_path):
-                name = read_line(usb_device_path, 'interface')
                 usb_device_path = os.path.dirname(usb_device_path)
-            else:
-                name = read_line(usb_device_path, 'product')
+
             vid = int(read_line(usb_device_path, 'idVendor'), 16)
             pid = int(read_line(usb_device_path, 'idProduct'), 16)
-        else:
-            name = read_line(video_device_path, 'name')
-            vid = None
-            pid = None
-        if not name:
-            name = device_name
+
         yield CameraInfo(index, name, path, vid, pid, apiPreference)
 
 
