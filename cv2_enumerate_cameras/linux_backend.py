@@ -26,7 +26,7 @@ def cameras_generator(apiPreference):
     for path in glob.glob('/dev/video*'):
         device_name = os.path.basename(path)
         if not device_name[5:].isdigit():
-            break
+            continue
         index = int(device_name[5:])
         video_device_path = f'/sys/class/video4linux/{device_name}'
         usb_device_path = os.path.join(video_device_path, 'device')
