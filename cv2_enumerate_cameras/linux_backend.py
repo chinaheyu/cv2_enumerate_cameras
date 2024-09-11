@@ -1,6 +1,6 @@
 from cv2_enumerate_cameras.camera_info import CameraInfo
 import os
-import glob
+from linuxpy.video.device import iter_video_capture_devices
 
 try:
     import cv2
@@ -23,7 +23,9 @@ def read_line(*args):
 
 
 def cameras_generator(apiPreference):
-    for path in glob.glob('/dev/video*'):
+    for device in iter_video_capture_devices():
+        path = device.PREFIX + str(device.index)
+        index = device.index
         # find device name and index
         device_name = os.path.basename(path)
         if not device_name[5:].isdigit():
