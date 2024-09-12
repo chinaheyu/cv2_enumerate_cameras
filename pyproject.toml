@@ -14,6 +14,11 @@ license = {file = "LICENSE"}
 keywords = ["opencv", "cv2", "enumerate", "camera", "video capture"]
 dynamic = ["version"]
 
+[project.optional-dependencies]
+linuxpy = [
+  "linuxpy ; platform_system == 'Linux'"
+]
+
 [project.urls]
 Homepage = "https://github.com/chinaheyu/cv2_enumerate_cameras"
 Issues = "https://github.com/chinaheyu/cv2_enumerate_cameras/issues"

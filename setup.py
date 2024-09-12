@@ -29,6 +29,7 @@ if system == 'Windows':
         ]
     )
 
+
 if system == 'Linux':
     setup(
         name='cv2_enumerate_cameras',
@@ -36,5 +37,8 @@ if system == 'Linux':
         version=get_version('cv2_enumerate_cameras/__init__.py'),
         package_dir={"": "."},
         packages=["cv2_enumerate_cameras"],
-        install_requires=["linuxpy"],
-        ext_modules=[])
+        extras_require={
+            'linuxpy': ["linuxpy"]
+        },
+        ext_modules=[]
+    )
