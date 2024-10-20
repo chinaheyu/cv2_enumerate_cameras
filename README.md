@@ -1,11 +1,16 @@
+<div align="center">
+
 # cv2_enumerate_cameras
 
 ![PyPI - Version](https://img.shields.io/pypi/v/cv2-enumerate-cameras)
 ![Python Version from PEP 621 TOML](https://img.shields.io/python/required-version-toml?tomlFilePath=https%3A%2F%2Fraw.githubusercontent.com%2Fchinaheyu%2Fcv2_enumerate_cameras%2Fmain%2Fpyproject.toml)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/chinaheyu/cv2_enumerate_cameras/publish-to-pypi.yml)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/cv2-enumerate-cameras)
 
-Retrieve the connected camera's name, VID, PID, and the corresponding OpenCV index.
+Retrieve camera's name, VID, PID, and the corresponding OpenCV index.
+
+![](https://raw.githubusercontent.com/chinaheyu/cv2_enumerate_cameras/main/assets/script.png)
+
+</div>
 
 ## Installation
 
@@ -25,11 +30,15 @@ pip install git+https://github.com/chinaheyu/cv2_enumerate_cameras.git
 
 ### Run as Script
 
+We have provided a simple script that prints out information for all cameras. Open a shell and simply run:
+
 ```commandline
 python -m cv2_enumerate_cameras
 ```
 
 ### Supported Backends
+
+Since OpenCV supports many different backends, not all of them provide support for camera enumeration. The following code demonstrates how to retrieve the names of the supported backends.
 
 ```python
 from cv2.videoio_registry import getBackendName
@@ -38,6 +47,16 @@ from cv2_enumerate_cameras import supported_backends
 for backend in supported_backends:
     print(getBackendName(backend))
 ```
+
+Currently supported backends on windows:
+
+- Microsoft Media Foundation (CAP_MSMF)
+- DirectShow (CAP_DSHOW)
+
+Currently supported backends on linux:
+
+- GStreamer (CAP_GSTREAMER)
+-  V4L/V4L2 (CAP_V4L2)
 
 ### Enumerate Cameras
 
@@ -50,7 +69,7 @@ for camera_info in enumerate_cameras():
     print(f'{camera_info.index}: {camera_info.name}')
 ```
 
-Output:
+The `enumerate_cameras(apiPreference: int = CAP_ANY)` function comes with the default parameter `CAP_ANY`, and you will receive output similar to the following:
 
 ```
 1400: HD Webcam
@@ -64,17 +83,7 @@ These indices may seem strange, since [opencv defaults to using the high digits 
 
 You can also select a supported backend for enumerating camera devices.
 
-Currently supported backends on windows:
-
-- Microsoft Media Foundation (CAP_MSMF)
-- DirectShow (CAP_DSHOW)
-
-Currently supported backends on linux:
-
-- GStreamer (CAP_GSTREAMER)
--  V4L/V4L2 (CAP_V4L2)
-
-Here's an example of enumerating camera devices via the CAP_MSMF backend on windows.
+Here's an example of enumerating camera devices via the `CAP_MSMF` backend on windows.
 
 ```python
 import cv2
@@ -91,36 +100,49 @@ Output:
 ...
 ```
 
-Once you have found the target camera, you can create a `cv2.VideoCapture` by its index and backend properties.
+Once you have found the target camera, you can create a `cv2.VideoCapture` by its **index** and **backend** properties.
 
 ```pycon
 cap = cv2.VideoCapture(camera_info.index, camera_info.backend)
 ```
 
+When using `CAP_ANY` as an option for the `enumerate_cameras` function, the backend parameter can be omitted. However, it is highly recommended to pass it along when creating a `VideoCapture`.
+
 ### Camera Info
 
-The `cv2_enumerate_cameras.enumerate_cameras()` function will return a list of `CameraInfo` objects.
+The `cv2_enumerate_cameras.enumerate_cameras()` function will return a list of `CameraInfo` objects, each containing information about a specific camera.
 
-- `CameraInfo.index`: Camera index for creating `cv2.VideoCapture`
-- `CameraInfo.name`: Camera name
-- `CameraInfo.path`:  Camera device path
-- `CameraInfo.vid`:  Vendor identifier
-- `CameraInfo.pid`:  Product identifier
-- `CameraInfo.backend`: Camera backend
+```pycon
+def enumerate_cameras(apiPreference: int = CAP_ANY) -> list[CameraInfo]:
+    ...
+```
+
+- `CameraInfo.index`: Camera index for creating `cv2.VideoCapture`ach containing all the information about a camera;
+- `CameraInfo.name`: Camera name;
+- `CameraInfo.path`:  Camera device path;
+- `CameraInfo.vid`:  Vendor identifier;
+- `CameraInfo.pid`:  Product identifier;
+- `CameraInfo.backend`: Camera backend.
 
 ### Find Camera by Vendor and Product Identifier
+
+This example demonstrates how to automatically select a camera based on its VID and PID and create a `VideoCapture` object.
 
 ```python
 import cv2
 from cv2_enumerate_cameras import enumerate_cameras
 
+# define a function to search for a camera
 def find_camera(vid, pid, apiPreference=cv2.CAP_ANY):
     for i in enumerate_cameras(apiPreference):
         if i.vid == vid and i.pid == pid:
             return cv2.VideoCapture(i.index, i.backend)
     return None
 
+# find the camera with VID 0x04F2 and PID 0xB711
 cap = find_camera(0x04F2, 0xB711)
+
+# read and display the camera frame
 while True:
     result, frame = cap.read()
     if not result:
@@ -131,6 +153,8 @@ while True:
 ```
 
 ## TODO
+
+Currently, support for MacOS is in the planning stage, and pull requests are very welcome.
 
 - [x] Windows Support
 - [x] Linux Support
