@@ -20,7 +20,7 @@ def main():
             continue
 
         name_column_length = max(max((len(i.name) for i in camera_info_list)), 4)
-        path_column_length = max(max((len(i.path) for i in camera_info_list)), 4)
+        path_column_length = max([len(i.path) for i in camera_info_list if i.path is not None] + [4])
 
         separate_line = "+-------+-" + "-" * name_column_length + "-+------+------+-" + "-" * path_column_length + "-+"
         output_rows = [
