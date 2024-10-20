@@ -1,9 +1,6 @@
 name: Python package
 
-on:
-  push:
-    tags:
-      - '*'
+on: push
 
 jobs:
   build_linux_wheels:
@@ -55,6 +52,7 @@ jobs:
           path: dist/*.tar.gz
 
   publish-to-pypi:
+    if: startsWith(github.ref, 'refs/tags/')
     needs: [build_linux_wheels, build_windows_wheels, build_sdist]
     runs-on: ubuntu-latest
     steps:
