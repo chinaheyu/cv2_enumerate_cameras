@@ -61,8 +61,12 @@ def cameras_generator(apiPreference):
             if ':' in os.path.basename(usb_device_path):
                 usb_device_path = os.path.dirname(usb_device_path)
 
-            vid = int(read_line(usb_device_path, 'idVendor'), 16)
-            pid = int(read_line(usb_device_path, 'idProduct'), 16)
+            vid = read_line(usb_device_path, 'idVendor')
+            pid = read_line(usb_device_path, 'idProduct')
+            if vid is not None:
+                vid = int(vid, 16)
+            if pid is not None:
+                pid = int(pid, 16)
 
         yield CameraInfo(index, name, path, vid, pid, apiPreference)
 
