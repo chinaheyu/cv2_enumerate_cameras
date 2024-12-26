@@ -31,8 +31,5 @@ where = ["."]
 include = ["cv2_enumerate_cameras"]
 namespaces = false
 
-[tool.setuptools.exclude-package-data]
-cv2_enumerate_cameras = ["cv2_enumerate_cameras.cpp"]
-
 [tool.setuptools.dynamic]
 version = {attr = "cv2_enumerate_cameras.__version__"}
