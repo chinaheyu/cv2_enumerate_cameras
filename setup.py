@@ -24,7 +24,9 @@ if system == 'Windows':
         ext_modules=[
             Extension(
                 name="cv2_enumerate_cameras._windows_backend",
-                sources=["cv2_enumerate_cameras/_windows_backend.cpp"]
+                sources=["cv2_enumerate_cameras/_windows_backend.cpp"],
+                py_limited_api=True,
+                define_macros=[("Py_LIMITED_API", "0x03020000")]
             )
         ]
     )
