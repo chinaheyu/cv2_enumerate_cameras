@@ -20,7 +20,7 @@ struct CameraInfo
 };
 
 bool MSMF_enumerate_cameras(std::vector<CameraInfo>& camera_info) {
-    if (FAILED(CoInitialize(nullptr)))
+    if (FAILED(CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED)) && FAILED(CoInitializeEx(nullptr, COINIT_MULTITHREADED)))
         return false;
     if (FAILED(MFStartup(MF_VERSION)))
         return false;
@@ -78,7 +78,7 @@ bool MSMF_enumerate_cameras(std::vector<CameraInfo>& camera_info) {
 }
 
 bool DSHOW_enumerate_cameras(std::vector<CameraInfo>& camera_info) {
-    if (FAILED(CoInitialize(nullptr)))
+    if (FAILED(CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED)) && FAILED(CoInitializeEx(nullptr, COINIT_MULTITHREADED)))
         return false;
 
     ICreateDevEnum* pDevEnum = NULL;
