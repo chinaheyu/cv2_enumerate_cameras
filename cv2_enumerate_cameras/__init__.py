@@ -15,6 +15,8 @@ if system == 'Windows':
     from cv2_enumerate_cameras.windows_backend import supported_backends, cameras_generator
 elif system == 'Linux':
     from cv2_enumerate_cameras.linux_backend import supported_backends, cameras_generator
+elif system == 'Darwin':
+    from cv2_enumerate_cameras.macos_backend import supported_backends, cameras_generator
 else:
     from cv2_enumerate_cameras.opencv_backend import supported_backends, cameras_generator
 

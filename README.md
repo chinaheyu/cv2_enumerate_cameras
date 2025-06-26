@@ -58,6 +58,10 @@ Currently supported backends on linux:
 - GStreamer (CAP_GSTREAMER)
 -  V4L/V4L2 (CAP_V4L2)
 
+Currently supported backends on macOS:
+
+- AVFoundation (CAP_AVFOUNDATION)
+
 ### Enumerate Cameras
 
 This is an example showing how to enumerate cameras.

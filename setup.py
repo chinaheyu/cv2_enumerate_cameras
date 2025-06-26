@@ -44,3 +44,16 @@ if system == 'Linux':
         },
         ext_modules=[]
     )
+
+if system == 'Darwin':
+    setup(
+        name='cv2_enumerate_cameras',
+        description='Enumerate / List / Find / Detect / Search index for opencv VideoCapture.',
+        version=get_version('cv2_enumerate_cameras/__init__.py'),
+        package_dir={"": "."},
+        packages=["cv2_enumerate_cameras"],
+        extra_require={
+            "avfoundation": ["avfoundation"],
+        },
+        ext_modules=[]
+    )
