@@ -52,8 +52,8 @@ if system == 'Darwin':
         version=get_version('cv2_enumerate_cameras/__init__.py'),
         package_dir={"": "."},
         packages=["cv2_enumerate_cameras"],
-        extra_require={
-            "avfoundation": ["avfoundation"],
-        },
+        install_requires=[
+            "pyobjc-framework-AVFoundation",
+        ],
         ext_modules=[]
     )
