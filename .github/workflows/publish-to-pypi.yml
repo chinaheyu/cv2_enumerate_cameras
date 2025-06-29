@@ -17,7 +17,7 @@ jobs:
           name: output-wheels-linux-latest
           path: ./dist/*.whl
 
-  build_windows_wheels:
+  build_windows_wheels_x64:
     name: Build wheels on windows-latest
     runs-on: windows-latest
 
@@ -28,7 +28,29 @@ jobs:
       - name: Store the distribution packages
         uses: actions/upload-artifact@v4
         with:
-          name: output-wheels-windows-latest
+          name: output-wheels-windows-latest-x64
+          path: ./dist/*.whl
+
+  build_windows_wheels_x86:
+    name: Build wheels on windows-latest
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+          architecture: x86
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --upgrade build
+      - name: Build package
+        run: python -m build --wheel
+      - name: Store the distribution packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: output-wheels-windows-latest-x86
           path: ./dist/*.whl
 
   build_sdist:
@@ -47,7 +69,7 @@ jobs:
   publish-to-pypi:
     name: Publish Python distribution to PyPI
     if: startsWith(github.ref, 'refs/tags/')
-    needs: [build_linux_wheels, build_windows_wheels, build_sdist]
+    needs: [build_linux_wheels, build_windows_wheels_x64, build_windows_wheels_x86, build_sdist]
     runs-on: ubuntu-latest
     environment:
       name: pypi
