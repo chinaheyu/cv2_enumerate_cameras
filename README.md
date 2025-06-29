@@ -162,4 +162,4 @@ Currently, support for MacOS is in the planning stage, and pull requests are ver
 
 - [x] Windows Support
 - [x] Linux Support
-- [ ] MacOS Support
+- [x] MacOS Support (Experimental)
