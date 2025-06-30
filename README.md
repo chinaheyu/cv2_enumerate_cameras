@@ -83,7 +83,7 @@ The `enumerate_cameras(apiPreference: int = CAP_ANY)` function comes with the de
 ...
 ```
 
-These indices may seem strange, since [opencv defaults to using the high digits of index to represent the backend](https://github.com/opencv/opencv/blob/4.x/modules/videoio/src/cap.cpp#L245). For example, 701 indicates the second camera on the DSHOW backend (700).
+These indices may seem strange, since [opencv defaults to using the high digits of index to represent the backend](https://github.com/opencv/opencv/blob/43112409ef0b711b18c2dc12433ad5e2403aea71/modules/videoio/src/cap.cpp#L384). For example, 701 indicates the second camera on the DSHOW backend (700).
 
 You can also select a supported backend for enumerating camera devices.
 
@@ -158,7 +158,7 @@ while True:
 
 ## TODO
 
-Currently, support for MacOS is in the planning stage, and pull requests are very welcome.
+Pull requests are very welcome.
 
 - [x] Windows Support
 - [x] Linux Support
