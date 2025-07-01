@@ -22,13 +22,23 @@ def cameras_generator(apiPreference):
         AVFoundation.AVMediaTypeVideo
     )
 
-    for d in devs:
+    devs = devs.arrayByAddingObjectsFromArray_(
+        AVFoundation.AVCaptureDevice.devicesWithMediaType_(
+            AVFoundation.AVMediaTypeMuxed
+        )
+    )
+
+    devs = list(devs)
+
+    devs.sort(key=lambda d: d.uniqueID())
+
+    for i, d in enumerate(devs):
         model = str(d.modelID())
         vid_m = _VID_RE.search(model)
         pid_m = _PID_RE.search(model)
 
         yield CameraInfo(
-            index=d.position(),
+            index=i,
             name=d.localizedName(),
             path=None,  # macOS does not provide a path
             vid=int(vid_m.group(1)) if vid_m else None,
