@@ -40,7 +40,7 @@ def cameras_generator(apiPreference):
         yield CameraInfo(
             index=i,
             name=d.localizedName(),
-            path=None,  # macOS does not provide a path
+            path=d.uniqueID(),  # macOS does not provide a path, but uniqueID persists with a device over time
             vid=int(vid_m.group(1)) if vid_m else None,
             pid=int(pid_m.group(1)) if pid_m else None,
             backend=apiPreference,
